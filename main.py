@@ -46,9 +46,13 @@ class Window(QMainWindow):
         appdata_path = os.getenv('APPDATA')
         directory_path = os.path.join(appdata_path, 'AutoCry', 'AutoTangQua')
         file_path = os.path.join(directory_path, 'config.txt')
+        count_path = os.path.join(directory_path, "count.txt")
         if not os.path.exists(file_path):
             with open(file_path, 'w') as file:
                 file.write("")  # Create an empty file
+        if not os.path.exists(file_path):
+            with open(count_path, 'w') as file:
+                file.write("") # Create an empty file
         count_path = os.path.join(directory_path, "count.txt")
 
         def copy_button_clicked():
@@ -114,12 +118,7 @@ class Window(QMainWindow):
         self.show()
 
     def init_file_watcher(self):
-        appdata_path = os.getenv('APPDATA')
-        directory_path = os.path.join(appdata_path, 'AutoCry', 'AutoTangQua')
-        count_path = os.path.join(directory_path, "count.txt")
-        if not os.path.exists(count_path):
-            with open(count_path, 'w') as file:
-                file.write("")  # Create an empty file
+
         self.watcher = QFileSystemWatcher()
         self.watcher.addPath(count_path)
         self.watcher.fileChanged.connect(self.fileChangedHandler)
